@@ -61,12 +61,14 @@ public class ProductDBHandler extends SQLiteOpenHelper {
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            products.add(new Product(
-                    cursor.getInt(cursor.getColumnIndex(TABLE_PRODUCTS_COLUMN_ID_NAME)),
-                    cursor.getString(cursor.getColumnIndex(TABLE_PRODUCTS_COLUMN_PRODUCT_NAME))
-            ));
+            if(cursor.getString(cursor.getColumnIndex(TABLE_PRODUCTS_COLUMN_PRODUCT_NAME)) != null) {
+                products.add(new Product(
+                        cursor.getInt(cursor.getColumnIndex(TABLE_PRODUCTS_COLUMN_ID_NAME)),
+                        cursor.getString(cursor.getColumnIndex(TABLE_PRODUCTS_COLUMN_PRODUCT_NAME))
+                ));
+            }
+            cursor.moveToNext();
         }
-
         return products;
     }
 }
